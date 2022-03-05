@@ -3,13 +3,14 @@ class InventoryAllocator:
         self.result = []
 
     def solution(self, order, warehouse_list):
+        self.result = []
         for warehouse in warehouse_list:
             warehouse_inventory = warehouse['inventory']
             get_product_condition = {}
             for product, count in order.items():
                 if product in warehouse_inventory.keys() and count != 0 and warehouse_inventory[product] != 0:
                     get_product_count_in_warehouse = min(count, warehouse_inventory[product])
-                    order[product] = 0 if get_product_count_in_warehouse == count else count - warehouse_inventory[product]
+                    order[product] = count - get_product_count_in_warehouse
                     get_product_condition[product] = get_product_count_in_warehouse
 
             if get_product_condition:
